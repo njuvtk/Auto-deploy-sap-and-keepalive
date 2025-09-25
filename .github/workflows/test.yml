@@ -1,0 +1,23 @@
+name: Display Secrets Example
+
+on: [push]
+
+jobs:
+  debug-secrets:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Safe display (masked)
+        run: |
+          echo "Email: ${{ secrets.EMAIL }}"
+          echo "Password: ${{ secrets.PASSWORD }}"
+
+      - name: Check lengths
+        run: |
+          echo "Email length: ${#EMAIL}"
+          echo "Password length: ${#PASSWORD}"
+        env:
+          EMAIL: ${{ secrets.EMAIL }}
+          PASSWORD: ${{ secrets.PASSWORD }}
